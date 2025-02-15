@@ -36,7 +36,8 @@ jobs:
   upload:
     runs-on: ubuntu-latest
     needs: run
-    if: ${{ needs.run.outputs.conclusion == 'success' }}
+    # yamllint disable-line rule:line-length
+    if: ${{ needs.run.outputs.conclusion == 'success' && github.event_name != "pull_request" }}
     steps:
       - id: build
         run: install -d _site && touch _site/index.html
